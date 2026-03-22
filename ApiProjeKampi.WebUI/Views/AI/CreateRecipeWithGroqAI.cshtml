@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Yummy AI Yemek Tarifi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="section">
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Groq AI ile Yemek Tarifi</h4>
+                    </div>
+                    <div class="card-body">
+                        @* Action ve Controller isminin doğruluğundan emin oluyoruz *@
+                        <form asp-controller="AI" asp-action="CreateRecipeWithGroqAI" method="post">
+                            <div class="form-group">
+                                <label>Elinizdeki Malzemeler</label>
+                                <input type="text" name="prompt" class="form-control" placeholder="Örn: Domates, Biber, Yumurta..." required />
+                            </div>
+                            <br />
+                            <button type="submit" class="btn btn-primary">Tarif Oluştur</button>
+                        </form>
+
+                        @if (ViewBag.recipe != null)
+                        {
+                            <hr />
+                            <div class="p-4 mb-2 bg-light text-dark border rounded shadow-sm">
+                                <h5 class="mb-3 text-success">Şefin Önerisi:</h5>
+                                <div style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.7;">
+                                    @ViewBag.recipe
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

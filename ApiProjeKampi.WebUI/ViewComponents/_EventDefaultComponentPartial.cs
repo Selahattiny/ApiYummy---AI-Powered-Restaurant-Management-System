@@ -20,7 +20,7 @@ namespace ApiProjeKampi.WebUI.ViewComponents
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResulteventDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultEventDto>>(jsonData);
                 return View(values);
             }
             return View();

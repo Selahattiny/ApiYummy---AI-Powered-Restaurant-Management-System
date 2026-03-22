@@ -1,5 +1,8 @@
 ﻿using ApiProjeKampi.WebApi.Context;
+using ApiProjeKampi.WebApi.Dtos.CategoryDtos;
+using ApiProjeKampi.WebApi.Dtos.FeatureDtos;
 using ApiProjeKampi.WebApi.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -12,9 +15,11 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ApiContex _context;
-        public CategoriesController(ApiContex contex)
+        private readonly IMapper _mapper;
+        public CategoriesController(ApiContex contex, IMapper mapper)
         {
             _context = contex;
+            _mapper = mapper;
         }
         [HttpGet]
         public IActionResult CategoryList() 
@@ -22,10 +27,14 @@ namespace ApiProjeKampi.WebApi.Controllers
             var values = _context.Categories.ToList();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateCategory(Category category)
+        public IActionResult CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            _context.Categories.Add(category);
+            // _context.Categories.Add(category);
+            //_context.SaveChanges();
+            var value = _mapper.Map<Category>(createCategoryDto);
+            _context.Categories.Add(value);
             _context.SaveChanges();
             return Ok("Kategori ekleme işlemi başarılı");
         }
@@ -44,9 +53,10 @@ namespace ApiProjeKampi.WebApi.Controllers
             return Ok(value);
         }
         [HttpPut]
-        public IActionResult UptadeCategory (Category category)
+        public IActionResult UptadeCategory (UpdateCategoryDto updateCategoryDto)
         {
-            _context.Categories.Update(category);
+            var value = _mapper.Map<Category>(updateCategoryDto);
+            _context.Categories.Update(value);
             _context.SaveChanges();
             return Ok("Kategori güncelleme başarılı");
         }

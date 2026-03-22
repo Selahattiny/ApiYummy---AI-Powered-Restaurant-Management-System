@@ -10,9 +10,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class YummyEventsController : ControllerBase
     {
         private readonly ApiContex _context;
-        public YummyEventsController(ApiContex contex)
+        public YummyEventsController(ApiContex context)
         {
-            _context = contex;
+            _context = context;
         }
         [HttpGet]
         public IActionResult YummyEventList()

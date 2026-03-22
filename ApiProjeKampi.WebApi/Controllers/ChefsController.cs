@@ -30,9 +30,9 @@ namespace ApiProjeKampi.WebApi.Controllers
             return Ok("Şef sisteme başarıyla eklendi");
         }
         [HttpDelete]
-        public IActionResult DeleteChef(int İd) 
+        public IActionResult DeleteChef(int id) 
         {
-            var value = _contex.Chefs.Find(İd);
+            var value = _contex.Chefs.Find(id);
             _contex.Chefs.Remove(value);
             _contex.SaveChanges() ;
             return Ok("Şef sistemden silindi.");
