@@ -1,6 +1,8 @@
-﻿using ApiProjeKampi.WebApi.Dtos.AboutDtos;
+﻿using ApiProjeKampi.WebApi.Controllers;
+using ApiProjeKampi.WebApi.Dtos.AboutDtos;
 using ApiProjeKampi.WebApi.Dtos.CategoryDtos;
 using ApiProjeKampi.WebApi.Dtos.FeatureDtos;
+using ApiProjeKampi.WebApi.Dtos.GroupReservationDtos;
 using ApiProjeKampi.WebApi.Dtos.ImagesDtos;
 using ApiProjeKampi.WebApi.Dtos.MessageDto;
 using ApiProjeKampi.WebApi.Dtos.NotificationDtos;
@@ -8,6 +10,7 @@ using ApiProjeKampi.WebApi.Dtos.ProductDto;
 using ApiProjeKampi.WebApi.Dtos.ReservationDtos;
 using ApiProjeKampi.WebApi.Entities;
 using AutoMapper;
+
 
 namespace ApiProjeKampi.WebApi.Mapping
 {
@@ -51,6 +54,12 @@ namespace ApiProjeKampi.WebApi.Mapping
             CreateMap<Image, CreateImageDto>().ReverseMap();
             CreateMap<Image, UpdateImageDto>().ReverseMap();
             CreateMap<Image, GetImageByIdDto>().ReverseMap();
+
+
+            CreateMap<GroupReservation, ApiProjeKampi.WebApi.Dtos.GroupReservationDtos.ResultGroupReservationDto>().ReverseMap();
+            CreateMap<GroupReservation, ApiProjeKampi.WebApi.Dtos.GroupReservationDtos.CreateGroupReservationDto>().ReverseMap();
+            CreateMap<GroupReservation, ApiProjeKampi.WebApi.Dtos.GroupReservationDtos.UpdateGroupReservationDto>().ReverseMap();
+            CreateMap<GroupReservation, ApiProjeKampi.WebApi.Dtos.GroupReservationDtos.GetGroupReservationByIdDto>().ReverseMap();
 
 
 

@@ -12,9 +12,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class MessagesController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
 
-        public MessagesController(IMapper mapper, ApiContex context)
+        public MessagesController(IMapper mapper, ApiContext context)
         {
             _mapper = mapper;
             _context = context;

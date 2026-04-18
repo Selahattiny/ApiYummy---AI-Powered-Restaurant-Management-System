@@ -12,8 +12,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class NotificationsController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ApiContex _context;
-        public NotificationsController(IMapper mapper, ApiContex context)
+        private readonly ApiContext _context;
+        public NotificationsController(IMapper mapper, ApiContext context)
         {
             _mapper = mapper;
             _context = context;

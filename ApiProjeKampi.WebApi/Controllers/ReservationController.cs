@@ -11,9 +11,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
         private readonly IMapper _mapper;
-        public ReservationsController(ApiContex contex, IMapper mapper)
+        public ReservationsController(ApiContext contex, IMapper mapper)
         {
             _context = contex;
             _mapper = mapper;
@@ -56,6 +56,70 @@ namespace ApiProjeKampi.WebApi.Controllers
             _context.Reservations.Update(value);
             _context.SaveChanges();
             return Ok("Rezervasyon güncelleme başarılı");
+        }
+
+        [HttpGet("GetTotalReservationCount")]
+        public IActionResult GetTotalReservationCount()
+        {
+            var value = _context.Reservations.Count();
+            return Ok(value);
+        }
+
+        [HttpGet("GetTotalCustomerCount")]
+        public IActionResult GetTotalCustomerCount()
+        {
+            var value = _context.Reservations.Sum(x => x.CountofPeople);
+            return Ok(value);
+        }
+
+        [HttpGet("GetPendingReservations")]
+        public IActionResult GetPendingReservations()
+        {
+            var value = _context.Reservations.Where(x => x.ReservationStatus == "Onay Bekliyor").Count();
+            return Ok(value);
+        }
+
+        [HttpGet("GetApprovedReservations")]
+        public IActionResult GetApprovedReservations()
+        {
+            var value = _context.Reservations.Where(x => x.ReservationStatus == "Onaylandı").Count();
+            return Ok(value);
+        }
+
+        [HttpGet("GetReservationStats")]
+        public IActionResult GetReservationStats()
+        {
+            // Grafikte son 6 ayı göstererek daha dolu bir görüntü sağlayalım
+            DateTime today = DateTime.Today;
+            DateTime startDate = today.AddMonths(-5);
+
+            // 1. SQL tarafında gruplama
+            var rawData = _context.Reservations
+                .Where(r => r.ReservationDate >= startDate)
+                .GroupBy(r => new { r.ReservationDate.Year, r.ReservationDate.Month })
+                .Select(g => new
+                {
+                    g.Key.Year,
+                    g.Key.Month,
+                    // DİKKAT: Buradaki stringler veritabanındakiyle BİREBİR aynı olmalı
+                    Approved = g.Count(x => x.ReservationStatus == "Onaylandı"),
+                    Pending = g.Count(x => x.ReservationStatus == "Onay Bekliyor"), // "Beklemede" idi, düzeltildi
+                    Canceled = g.Count(x => x.ReservationStatus == "İptal Edildi")
+                })
+                .OrderBy(x => x.Year).ThenBy(x => x.Month)
+                .ToList();
+
+            // 2. DTO'ya dönüştürme
+            var result = rawData.Select(x => new ReservationChartDto
+            {
+                // "Nis 2026" formatında ay ismi
+                Month = new DateTime(x.Year, x.Month, 1).ToString("MMM yyyy"),
+                Approved = x.Approved,
+                Pending = x.Pending,
+                Canceled = x.Canceled
+            }).ToList();
+
+            return Ok(result);
         }
     }
 }

@@ -1,7 +1,17 @@
+using ApiProjeKampi.WebUI.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHttpClient();
+builder.Services.AddSignalR();
+builder.Services.AddHttpClient("cloudeai", c =>
+{
+    c.BaseAddress = new Uri("https://api.groq.com/openai/");
+    // Claude API genellikle þu header'larý da ister:
+    c.DefaultRequestHeaders.Add("x-api-key", "API_KEY_BURAYA");
+    c.DefaultRequestHeaders.Add("anthropic-version", "2023-06-01");
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -15,7 +25,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
+app.MapHub<ChatHub>("/chathub");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

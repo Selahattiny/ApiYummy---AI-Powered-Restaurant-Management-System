@@ -9,8 +9,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly ApiContex _context;
-        public ServicesController(ApiContex contex)
+        private readonly ApiContext _context;
+        public ServicesController(ApiContext contex)
         {
             _context = contex;
         }

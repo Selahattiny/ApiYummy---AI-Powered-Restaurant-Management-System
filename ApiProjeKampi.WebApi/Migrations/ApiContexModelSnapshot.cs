@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiProjeKampi.WebApi.Migrations
 {
-    [DbContext(typeof(ApiContex))]
+    [DbContext(typeof(ApiContext))]
     partial class ApiContexModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -138,6 +138,60 @@ namespace ApiProjeKampi.WebApi.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.EmployeeTask", b =>
+                {
+                    b.Property<int>("EmployeeTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeTaskId"), 1L, 1);
+
+                    b.Property<DateTime>("AssignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ChefId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("TaskStatusValue")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("EmployeeTaskId");
+
+                    b.HasIndex("ChefId");
+
+                    b.ToTable("EmployeeTask");
+                });
+
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.EmployeeTaskChef", b =>
+                {
+                    b.Property<int>("EmployeeTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChefId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeTaskId");
+
+                    b.HasIndex("ChefId");
+
+                    b.ToTable("EmployeeTaskChef");
+                });
+
             modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.Feature", b =>
                 {
                     b.Property<int>("FeatureId")
@@ -171,6 +225,51 @@ namespace ApiProjeKampi.WebApi.Migrations
                     b.ToTable("Features");
                 });
 
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.GroupReservation", b =>
+                {
+                    b.Property<int>("GroupReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupReservationId"), 1L, 1);
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GroupTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastProcessDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PersonCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReservationStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResponsibleCustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GroupReservationId");
+
+                    b.ToTable("GroupReservations");
+                });
+
             modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.Image", b =>
                 {
                     b.Property<int>("ImageId")
@@ -183,7 +282,7 @@ namespace ApiProjeKampi.WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tıtle")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -419,6 +518,32 @@ namespace ApiProjeKampi.WebApi.Migrations
                     b.ToTable("YummyEvents");
                 });
 
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.EmployeeTask", b =>
+                {
+                    b.HasOne("ApiProjeKampi.WebApi.Entities.Chef", null)
+                        .WithMany("EmployeeTaskChefs")
+                        .HasForeignKey("ChefId");
+                });
+
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.EmployeeTaskChef", b =>
+                {
+                    b.HasOne("ApiProjeKampi.WebApi.Entities.Chef", "Chef")
+                        .WithMany()
+                        .HasForeignKey("ChefId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiProjeKampi.WebApi.Entities.EmployeeTask", "EmployeeTask")
+                        .WithMany("EmployeeTaskChefs")
+                        .HasForeignKey("EmployeeTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chef");
+
+                    b.Navigation("EmployeeTask");
+                });
+
             modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.Product", b =>
                 {
                     b.HasOne("ApiProjeKampi.WebApi.Entities.Category", "Category")
@@ -431,6 +556,16 @@ namespace ApiProjeKampi.WebApi.Migrations
             modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.Chef", b =>
+                {
+                    b.Navigation("EmployeeTaskChefs");
+                });
+
+            modelBuilder.Entity("ApiProjeKampi.WebApi.Entities.EmployeeTask", b =>
+                {
+                    b.Navigation("EmployeeTaskChefs");
                 });
 #pragma warning restore 612, 618
         }

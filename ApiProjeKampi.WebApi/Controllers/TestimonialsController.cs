@@ -9,8 +9,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class TestimonialsController : ControllerBase
     {
-        private readonly ApiContex _context;
-        public TestimonialsController(ApiContex contex)
+        private readonly ApiContext _context;
+        public TestimonialsController(ApiContext contex)
         {
             _context = contex;
         }

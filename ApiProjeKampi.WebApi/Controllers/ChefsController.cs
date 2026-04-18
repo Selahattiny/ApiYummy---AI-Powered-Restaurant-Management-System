@@ -9,8 +9,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class ChefsController : ControllerBase
     {
-        private readonly ApiContex _contex;
-        public ChefsController(ApiContex contex)
+        private readonly ApiContext _contex;
+        public ChefsController(ApiContext contex)
         {
             _contex = contex;
         }

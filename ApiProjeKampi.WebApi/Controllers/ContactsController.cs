@@ -11,8 +11,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        private readonly ApiContex _contex;
-         public ContactsController(ApiContex contex)
+        private readonly ApiContext _contex;
+         public ContactsController(ApiContext contex)
         {
             _contex = contex;
         }

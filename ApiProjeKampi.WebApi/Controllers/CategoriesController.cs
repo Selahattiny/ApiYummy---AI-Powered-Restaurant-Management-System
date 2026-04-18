@@ -14,9 +14,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
         private readonly IMapper _mapper;
-        public CategoriesController(ApiContex contex, IMapper mapper)
+        public CategoriesController(ApiContext contex, IMapper mapper)
         {
             _context = contex;
             _mapper = mapper;

@@ -11,9 +11,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class ImagesController : ControllerBase
     {
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
         private readonly IMapper _mapper;
-        public ImagesController(ApiContex contex, IMapper mapper)
+        public ImagesController(ApiContext contex, IMapper mapper)
         {
             _context = contex;
             _mapper = mapper;

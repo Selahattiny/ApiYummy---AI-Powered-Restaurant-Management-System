@@ -11,9 +11,9 @@ namespace ApiProjeKampi.WebApi.Controllers
     [ApiController]
     public class AboutsController : ControllerBase
     {
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
         private readonly IMapper _mapper;
-        public AboutsController(ApiContex contex, IMapper mapper)
+        public AboutsController(ApiContext contex, IMapper mapper)
         {
             _context = contex;
             _mapper = mapper;

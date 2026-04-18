@@ -3,35 +3,163 @@
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
+<style>
+    .modern-card {
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        border: none;
+        background: white;
+    }
+
+    .ai-container {
+        padding: 2rem;
+    }
+
+    .input-section {
+        background: #f8f9ff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border-left: 4px solid #667eea;
+        margin-bottom: 2rem;
+    }
+
+    .modern-label {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .modern-input {
+        border-radius: 10px;
+        border: 2px solid #eef0f8;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .modern-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.1);
+        }
+
+    .btn-generate {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.8rem 2rem;
+        border-radius: 10px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+    .recipe-result {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        border: 1px solid #eef0f8;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        position: relative;
+    }
+
+    .recipe-badge {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+    }
+
+    .recipe-text {
+        white-space: pre-wrap;
+        font-family: 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.8;
+        color: #444;
+        font-size: 1.05rem;
+    }
+
+    .ai-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-right: 10px;
+    }
+</style>
+
 <section class="section">
     <div class="section-body">
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Groq AI ile Yemek Tarifi</h4>
+                <div class="card modern-card">
+                    <div class="card-header" style="background: white; border-bottom: 2px solid #f0f0f0; border-radius: 15px 15px 0 0;">
+                        <h4 style="color: #667eea; font-weight: 700; margin: 0;">
+                            <i class="fas fa-robot ai-icon"></i>
+                            Groq AI Şef ile Akıllı Tarifler
+                        </h4>
                     </div>
-                    <div class="card-body">
-                        @* Action ve Controller isminin doğruluğundan emin oluyoruz *@
-                        <form asp-controller="AI" asp-action="CreateRecipeWithGroqAI" method="post">
-                            <div class="form-group">
-                                <label>Elinizdeki Malzemeler</label>
-                                <input type="text" name="prompt" class="form-control" placeholder="Örn: Domates, Biber, Yumurta..." required />
-                            </div>
-                            <br />
-                            <button type="submit" class="btn btn-primary">Tarif Oluştur</button>
-                        </form>
+
+                    <div class="card-body ai-container">
+                        <div class="input-section">
+                            <form asp-controller="AI" asp-action="CreateRecipeWithGroqAI" method="post">
+                                <div class="form-group">
+                                    <label class="modern-label">
+                                        <i class="fas fa-shopping-basket" style="color: #667eea;"></i>
+                                        Elinizdeki Malzemeleri Yazın
+                                    </label>
+                                    <input type="text" name="prompt" class="form-control modern-input"
+                                           placeholder="Örn: Tavuk, Krema, Mantar, Köri..." required />
+                                </div>
+                                <div class="mt-4">
+                                    <button type="submit" class="btn-generate">
+                                        <i class="fas fa-magic"></i>
+                                        Tarif Oluştur
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
                         @if (ViewBag.recipe != null)
                         {
-                            <hr />
-                            <div class="p-4 mb-2 bg-light text-dark border rounded shadow-sm">
-                                <h5 class="mb-3 text-success">Şefin Önerisi:</h5>
-                                <div style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.7;">
+                            <div class="recipe-result">
+                                <span class="recipe-badge">
+                                    <i class="fas fa-utensils"></i> Şefin Özel Tarifi
+                                </span>
+                                <h5 class="mb-4" style="color: #764ba2; font-weight: 700;">Hazırlanış ve Detaylar</h5>
+                                <div class="recipe-text">
                                     @ViewBag.recipe
+                                </div>
+
+                                <div class="mt-4 pt-3 border-top text-muted" style="font-size: 0.85rem;">
+                                    <i class="fas fa-info-circle"></i> Bu tarif Groq AI tarafından malzemelerinize göre özel olarak üretilmiştir.
                                 </div>
                             </div>
                         }
+                        else
+                        {
+                            <div class="text-center py-5" style="color: #ccc;">
+                                <i class="fas fa-hat-chef fa-3x mb-3"></i>
+                                <p>Malzemelerinizi girin, AI şefimiz size harika bir tarif hazırlasın!</p>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="card-footer" style="background: white; border-top: 2px solid #f0f0f0; border-radius: 0 0 15px 15px;">
+                        <small class="text-muted">
+                            <i class="fas fa-bolt"></i> GroqCloud altyapısı ile anlık tarif üretimi.
+                        </small>
                     </div>
                 </div>
             </div>

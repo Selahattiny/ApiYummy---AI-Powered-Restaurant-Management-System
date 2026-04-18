@@ -15,10 +15,10 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IValidator<Product> _validator;
-        private readonly ApiContex _context;
+        private readonly ApiContext _context;
         private readonly IMapper _mapper;
 
-        public ProductsController(IValidator<Product> validator, ApiContex context, IMapper mapper)
+        public ProductsController(IValidator<Product> validator, ApiContext context, IMapper mapper)
         {
             _validator = validator;
             _context = context;

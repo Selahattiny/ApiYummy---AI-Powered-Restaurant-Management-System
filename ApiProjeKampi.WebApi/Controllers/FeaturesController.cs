@@ -13,8 +13,8 @@ namespace ApiProjeKampi.WebApi.Controllers
     public class FeaturesController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ApiContex _context;
-        public FeaturesController(IMapper mapper, ApiContex context)
+        private readonly ApiContext _context;
+        public FeaturesController(IMapper mapper, ApiContext context)
         {
             _mapper = mapper;
             _context = context;
