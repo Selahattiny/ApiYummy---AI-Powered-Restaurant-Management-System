@@ -10,7 +10,7 @@ namespace ApiProjeKampi.WebUI.Models
 {
     public class ChatHub: Hub
     {
-        private const string apiKey = "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";
+        private const string apiKey = "";
         private const string modelCloude = "llama-3.1-8b-instant";
         private readonly IHttpClientFactory _httpClientFactory;
 

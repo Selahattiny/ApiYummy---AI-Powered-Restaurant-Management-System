@@ -9,7 +9,7 @@ namespace ApiProjeKampi.WebUI.ViewComponents.DashboardViewComponents
     public class _DashboardAIDailyMenuSuggestionComponentPartial : ViewComponent
     {
         // DÜZELTME: API Key direkt olarak değişkene atandı.
-        private const string GROQ_API_KEY = "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";
+        private const string GROQ_API_KEY = "";
 
         private readonly IHttpClientFactory _httpClientFactory;
         public _DashboardAIDailyMenuSuggestionComponentPartial(IHttpClientFactory httpClientFactory)

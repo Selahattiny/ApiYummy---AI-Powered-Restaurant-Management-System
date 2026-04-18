@@ -14,7 +14,7 @@ namespace ApiProjeKampi.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRecipeWithGroqAI(string prompt)
         {
-            var apiKey = "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";
+            var apiKey = "";
             var baseUrl = "https://api.groq.com/openai/v1/chat/completions";
 
             using var client = new HttpClient();

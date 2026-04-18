@@ -103,7 +103,7 @@ namespace ApiProjeKampi.WebUI.Controllers
             }
 
             // 2. Groq Ayarları
-            var apiKey = "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";
+            var apiKey = "";
             var baseUrl = "https://api.groq.com/openai/v1/chat/completions";
 
             // Yetkilendirmeyi buraya ekle
@@ -146,7 +146,7 @@ namespace ApiProjeKampi.WebUI.Controllers
         public async Task<IActionResult> SendMessage(CreateMessageDto createMessageDto)
         {
             var client=new HttpClient();
-            var apiKey = "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";
+            var apiKey = "";
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer" , apiKey);
             try
             {
